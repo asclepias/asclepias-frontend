@@ -1,5 +1,5 @@
 import './custom.scss'
-import React, { Fragment } from "react"
+import React from "react"
 import { Routes, Route, Link } from "react-router-dom"
 
 import Header from "./Header"
@@ -39,8 +39,3 @@ export default function App() {
     );
 }
 
-const NewPage = () => (
-    <Fragment>
-        <h1>This place</h1>
-    </Fragment>
-)
