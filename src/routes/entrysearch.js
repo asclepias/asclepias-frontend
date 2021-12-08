@@ -5,6 +5,8 @@ const EntrySearch = props => {
 
     let navigate = useNavigate();
 
+    document.title = "Asclepias: Software Entry Search"
+
     const [inputSearch, setInputSearch] = useState({
         searchidentifier: "",
         searchidentifiertype: "choose",

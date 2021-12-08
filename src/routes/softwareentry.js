@@ -36,80 +36,14 @@ const SoftwareEntry = props => {
     useEffect(() => {
 
         const getCitationData = () => {
-            fetch(
-                `${process.env.REACT_APP_BROKER_URL}/relationships?id=${identifier}&scheme=${identifiertype}&relation=isCitedBy`,
-                {
-                    "method": "GET",
-                    "headers": {
-                        "accept": "application/json"
-                    }
-                }
-            )
-                .then(response => {
-                    if (!response.ok) throw response
-                    else return response.json()
-                })
-                .then(response => {
-                    setEntryInfo(prevState => ({
-                        ...prevState,
-                        citedJSON: response,
-                        numCitedHits: response.hits.total
-                    }))
-                })
-                .catch(err => {
-                    console.log(err);
-                    err.json().then(body => {
-                        setErrorInfo(prevState => ({
-                            ...prevState,
-                            requestFailed: true,
-                            errMsg: body
-                        }))
-                    })
-                })
-
-
-        }
-
-        const getRelatedData = () => {
-            fetch(
-                `${process.env.REACT_APP_BROKER_URL}/relationships?id=${identifier}&scheme=${identifiertype}&relation=isRelatedTo`,
-                {
-                    "method": "GET",
-                    "headers": {
-                        "accept": "application/json"
-                    }
-                }
-            )
-                .then(response => {
-                    if (!response.ok) throw response
-                    else return response.json()
-                })
-                .then(response => {
-                    setEntryInfo(prevState => ({
-                        ...prevState,
-                        relatedJSON: response,
-                        numRelatedHits: response.hits.total
-                    }))
-                })
-                .catch(err => {
-                    console.log(err);
-                    err.json().then(body => {
-                        setErrorInfo(prevState => ({
-                            ...prevState,
-                            requestFailed: true,
-                            errMsg: body
-                        }))
-                    })
-                })
-
+            const queryCitationUrl = `${process.env.REACT_APP_BROKER_URL}/relationships?id=${identifier}&scheme=${identifiertype}&relation=isCitedBy`
+            updateBrokerCitationResult(queryCitationUrl)
         }
 
         setErrorInfo(prevState => ({ ...prevState, requestFailed: false }))
 
         console.log("Getting Initial Citation Data")
         getCitationData()
-        console.log("Getting Initial Related Info")
-        getRelatedData()
 
     }, [setEntryInfo, setErrorInfo, identifiertype, identifier])
 
@@ -128,6 +62,7 @@ const SoftwareEntry = props => {
                 throw Error(response.statusText)
             }
             const json = await response.json()
+            console.log(json)
             setEntryInfo(prevState => ({
                     ...prevState,
                     citedJSON: json,
@@ -192,12 +127,6 @@ const SoftwareEntry = props => {
         )
     }
 
-    const relatedDetails = () => {
-        return (
-            <div>Here is where the related entries will go</div>
-        )
-    }
-
     useEffect(() => {
         return () => {
           console.log("Cleaning up...")
@@ -208,13 +137,12 @@ const SoftwareEntry = props => {
         <div className="container">
             {checkNoURLParams() && noParamMessage()}
             {errorInfo.requestFailed && brokerErrorMessage(errorInfo.errMsg)}
-            {!(entryInfo.numCitedHits + entryInfo.numRelatedHits) && noEntryMessage()}
+            {!(entryInfo.numCitedHits > 0) && noEntryMessage()}
 
-            {((entryInfo.numCitedHits + entryInfo.numRelatedHits) > 0) && 
+            {((entryInfo.numCitedHits) > 0) && 
             <SoftwareEntryDetails entryInfo={entryInfo} />  }
 
             {(entryInfo.numCitedHits > 0) && <CitationBox entryInfo={entryInfo} updateBrokerCitationProperty={updateBrokerCitationProperty}/>}
-            {(entryInfo.numRelatedHits > 0) && relatedDetails()}
 
         </div>
     )

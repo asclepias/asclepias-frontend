@@ -3,19 +3,16 @@ import { removeDuplicatesTwoProps } from "../helpers/apihelpers"
 
 const SoftwareEntryDetails = props => {
 
-    var entryMetadata;
-    if (props.entryInfo.numCitedHits > 0) {
-        entryMetadata = props.entryInfo.citedJSON.hits.hits[0].metadata.Target
-    } else {
-        entryMetadata = props.entryInfo.relatedJSON.hits.hits[0].metadata.Target
-    }
+    const entryMetadata = props.entryInfo.citedJSON.hits.hits[0].metadata.Target
 
     const authors = entryMetadata.Creator
     const keywords = entryMetadata.Keywords
     const pubDate = entryMetadata.PublicationDate
     const publisher = entryMetadata.Publisher
     const identifierData = entryMetadata.Identifier
-    const uniqueIdentifierData = removeDuplicatesTwoProps(identifierData, "IDURL", "ID")
+
+    const uniqueIdentifierData = removeDuplicatesTwoProps(identifierData, "IDScheme", "ID")
+
 
     return (
         <div className="container">
@@ -34,35 +31,44 @@ const SoftwareEntryDetails = props => {
                 </div>
             </div>
             <div className="container d-flex justify-content-between">
-                <div className="mb-2">
-                    <h6 className="mb-0">Publication Date</h6>
-                    {pubDate}
-                </div>
-                <div className="mb-2">
-                    <h6 className="mb-0">Keywords</h6>
-                    <ul className="list-inline">
-                        {
-                            keywords.map((keyword) => (
-                                <li className="list-inline-item" key={keyword.Keyword}>{keyword.Keyword};</li>
-                            ))
-                        }
-                    </ul>
-                </div>
 
-                <div className="mb-2">
-                    <h6 className="mb-0">Publisher</h6>
-                    <ul className="list-inline">
-                        {
-                            publisher.map((publisher) => (
-                                <li className="list-inline-item" key={publisher.Name}>{publisher.Name}; </li>
-                            ))
-                        }
-                    </ul>
+                {(entryMetadata.hasOwnProperty("PublicationDate")) &&                    
+                    <div className="mb-2">
+                        <h6 className="mb-0">Publication Date</h6>
+                        {pubDate}
+                    </div>
+                }
+
+                {(entryMetadata.hasOwnProperty("Keywords")) &&
+                    <div className="mb-2">
+                        <h6 className="mb-0">Keywords</h6>
+                        <ul className="list-inline">
+                            {
+                                keywords.map((keyword) => (
+                                    <li className="list-inline-item" key={keyword.Keyword}>{keyword.Keyword};</li>
+                                ))
+                            }
+                        </ul>
+                    </div>
+                }
+
+                {(entryMetadata.hasOwnProperty("Publisher")) &&
+                    <div className="mb-2">
+                        <h6 className="mb-0">Publisher</h6>
+                        <ul className="list-inline">
+                            {
+                                publisher.map((publisher) => (
+                                    <li className="list-inline-item" key={publisher.Name}>{publisher.Name}; </li>
+                                ))
+                            }
+                        </ul>
                 </div>
+                }
             </div>
             <div className="d-flex justify-content-evenly flex-wrap">
                         {
                             uniqueIdentifierData.map((idInfo) => (
+                                (idInfo.hasOwnProperty("IDURL")) && 
                                 <a className="btn btn-outline-primary btn-sm my-2 mx-2" href={idInfo.IDURL} key={idInfo.ID}>{idInfo.IDScheme.toUpperCase()}: {idInfo.ID}</a>
                             ) )
                         }

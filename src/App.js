@@ -9,8 +9,10 @@ import { Container } from 'react-bootstrap'
 import NoContent from './routes/nocontent'
 import EntrySearch from './routes/entrysearch'
 import SoftwareEntry from './routes/softwareentry'
+import MetadataSearch from './routes/metadatasearch'
 
 export default function App() {
+    document.title = "Asclepias: Citing Software, Making Science"
     return (
         <React.StrictMode>
             <Container fluid className="p-0 m-0">
@@ -28,6 +30,7 @@ export default function App() {
                     <Route path="/entry" element={<SoftwareEntry />}>
                         <Route path=":searchquery" element={<SoftwareEntry/>} />
                     </Route>
+                    <Route path="/metadatasearch" element={<MetadataSearch />} /> 
                     <Route path="*" element={<NoContent/>} />
                 </Routes>
 
