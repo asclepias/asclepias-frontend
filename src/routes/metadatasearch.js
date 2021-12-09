@@ -31,7 +31,6 @@ const MetadataSearch = props => {
 
     const handleSubmit = e => {
         e.preventDefault()
-        console.log({ inputMetadataSearch })
 
         let data = {}
 
@@ -44,7 +43,7 @@ const MetadataSearch = props => {
         }
 
         if (inputMetadataSearch.pubName.trim() !== "") {
-            data["publication"] = inputMetadataSearch.pubName.trim()
+            data["journal"] = inputMetadataSearch.pubName.trim()
         }
 
         if (inputMetadataSearch.otherSearchTerms.trim() !== "") {
@@ -64,7 +63,6 @@ const MetadataSearch = props => {
     }
 
     const validate = (data) => {
-        console.log(data)
         let validityStatus = true
         if (Object.entries(data).length === 0) {
             validityStatus = false
