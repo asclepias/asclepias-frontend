@@ -8,6 +8,13 @@ function useQuery() {
     return new URLSearchParams(useLocation().search)
 }
 
+const brokerSearchParams = { 
+    journal: "Publication Name", 
+    publication_year: "Publication Year", 
+    keyword: "Publication Keywords", 
+    q: "Other Search Terms" 
+}
+
 const SoftwareEntry = props => {
 
     const [entryInfo, setEntryInfo] = useState({
@@ -21,6 +28,15 @@ const SoftwareEntry = props => {
     const query = useQuery()
     const identifier = query.get("identifier")
     const identifiertype = query.get("identifiertype")
+    let metadataFilter = ""
+    let metadataParams = new URLSearchParams()
+    Object.keys(brokerSearchParams).forEach(paramName => {
+        if (query.has(paramName)) { 
+            metadataParams.set(paramName, query.get(paramName))
+            metadataFilter = metadataParams.toString()
+        }
+    })
+    const metadataSearchTerms = (metadataFilter === "") ? "" : ("&"+metadataFilter)
 
     const checkNoURLParams = () => {
         let noParams = true
@@ -37,7 +53,7 @@ const SoftwareEntry = props => {
     useEffect(() => {
 
         const getCitationData = () => {
-            const queryCitationUrl = `${process.env.REACT_APP_BROKER_URL}/relationships?id=${identifier}&scheme=${identifiertype}&relation=isCitedBy`
+            const queryCitationUrl = `${process.env.REACT_APP_BROKER_URL}/relationships?id=${identifier}&scheme=${identifiertype}&relation=isCitedBy${metadataSearchTerms}`
             updateBrokerCitationResult(queryCitationUrl)
         }
 
@@ -45,7 +61,7 @@ const SoftwareEntry = props => {
 
         getCitationData()
 
-    }, [setEntryInfo, setErrorInfo, identifiertype, identifier])
+    }, [setEntryInfo, setErrorInfo, identifiertype, identifier, metadataSearchTerms])
 
     const updateBrokerCitationResult = async (newURL) => {
         try {
@@ -123,7 +139,13 @@ const SoftwareEntry = props => {
             {((entryInfo.numCitedHits) > 0) && 
             <SoftwareEntryDetails entryInfo={entryInfo} />  }
 
-            {(entryInfo.numCitedHits > 0) && <CitationBox entryInfo={entryInfo} updateBrokerCitationProperty={updateBrokerCitationProperty}/>}
+            {(entryInfo.numCitedHits > 0) && 
+            <CitationBox 
+                entryInfo={entryInfo} 
+                updateBrokerCitationProperty={updateBrokerCitationProperty}
+                metadataFilter={metadataFilter}
+                brokerSearchParams={brokerSearchParams}
+            />}
 
         </div>
     )

@@ -9,7 +9,7 @@ function useQuery() {
 
 const MetadataSearchResults = props => {
 
-    const brokerSearchParams = { publication: "Publication Name", publication_year: "Publication Year", keyword: "Publication Keywords", q: "Other Search Terms" }
+    const brokerSearchParams = { journal: "Publication Name", publication_year: "Publication Year", keyword: "Publication Keywords", q: "Other Search Terms" }
 
 
     const [resultInfo, setResultInfo] = useState({

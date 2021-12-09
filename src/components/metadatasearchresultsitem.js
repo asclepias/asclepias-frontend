@@ -1,10 +1,15 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+
+function useQuery() {
+    return new URLSearchParams(useLocation().search)
+}
 
 const MetadataSearchResultsItem = props => {
 
     const primaryIdentifier = props.resultItem.Identifier[0]
     const linkToEntry = `/entry?identifier=${primaryIdentifier.ID}&identifiertype=${primaryIdentifier.IDScheme}`
+    const linkToEntryMetadataFilter = linkToEntry+"&"+useQuery().toString()
 
     return (
         <li className="list-group-item d-flex justify-content-between align-items-start" key={props.resultItem.Title + "key"}>
@@ -30,7 +35,9 @@ const MetadataSearchResultsItem = props => {
             </div>
 
         </div>
-        <span className="badge rounded-pill bg-success">{props.docCount} Relevant Citations</span>
+        <Link to={linkToEntryMetadataFilter}>
+            <span className="badge rounded-pill bg-success">{props.docCount} Relevant Citations</span>
+        </Link>
 
     </li>
     )

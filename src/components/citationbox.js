@@ -3,6 +3,24 @@ import CitationItem from "./citationitem"
 
 const CitationBox = props => {
 
+    var metadataFilterFlag = false
+    var searchHumanReadable = ""
+
+    if (props.metadataFilter !== "") {
+        metadataFilterFlag = true
+        const query = new URLSearchParams(props.metadataFilter)
+
+        Object.keys(props.brokerSearchParams).forEach(paramName => {
+            if (query.has(paramName)) { 
+                var paramValue = query.get(paramName)
+                if (paramName === "publication_year") {
+                    paramValue = paramValue.replace("--", " to ")
+                } 
+                searchHumanReadable += (props.brokerSearchParams[paramName] + ": " + paramValue + "; ")
+            }
+        })
+    }
+
     const citationHits = props.entryInfo.citedJSON.hits.hits
     const citationTotalHits = props.entryInfo.numCitedHits
     const citationNumHits = citationHits.length
@@ -56,7 +74,10 @@ const CitationBox = props => {
     return (
         <div className="container px-0" id="citationList">
             <div className="container d-flex mt-3 mb-2 justify-content-between align-items-end">
-                <div className="h4"> Citations </div>
+                <div className="h4 mb-0"> {{metadataFilterFlag} && "Filtered"} Citations </div>
+                { {metadataFilterFlag} && 
+                (<span className="badge rounded-pill bg-primary">{searchHumanReadable}</span>) }
+
                 <div> Items {citationStartHitNum} - {citationEndHitNum} of {citationTotalHits}</div>
             </div>
             <ol className="list-group">
