@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { resolvePath, useLocation } from "react-router";
+import { useLocation } from "react-router";
 import CitationBox from "../components/citationbox"
 import SoftwareEntryDetails from "../components/SoftwareEntryDetails";
+import { brokerErrorMessage } from "../helpers/apihelpers"
 
 function useQuery() {
     return new URLSearchParams(useLocation().search)
@@ -10,7 +11,7 @@ function useQuery() {
 const SoftwareEntry = props => {
 
     const [entryInfo, setEntryInfo] = useState({
-        citedJSON: {}, numCitedHits: 0, relatedJSON: {}, numRelatedHits: 0
+        citedJSON: {}, numCitedHits: 0
     })
 
     const [errorInfo, setErrorInfo] = useState({
@@ -42,7 +43,6 @@ const SoftwareEntry = props => {
 
         setErrorInfo(prevState => ({ ...prevState, requestFailed: false }))
 
-        console.log("Getting Initial Citation Data")
         getCitationData()
 
     }, [setEntryInfo, setErrorInfo, identifiertype, identifier])
@@ -62,7 +62,6 @@ const SoftwareEntry = props => {
                 throw Error(response.statusText)
             }
             const json = await response.json()
-            console.log(json)
             setEntryInfo(prevState => ({
                     ...prevState,
                     citedJSON: json,
@@ -100,29 +99,11 @@ const SoftwareEntry = props => {
 
     // Message if there's no entry found
     const noEntryMessage = () => {
+        document.title = "Asclepias: Software Entry: No Entry Found"
         return (
             <div className="container">
                 <h2 className="mt-2 mb-3"> No Entry Found </h2>
                 <p className="text-center fs-5">No entries found for <strong> {identifiertype.toUpperCase()}: {identifier}</strong>. Is the identifier or identifier type correct?</p>
-            </div>
-        )
-    }
-
-    // Message Container for Broker/API Errors
-    const brokerErrorMessage = (errMsg) => {
-        var errMsgBox;
-        if (errMsg.message) {
-            errMsgBox = (
-                <div className="p-3">
-                    <strong>Error {errMsg.status}:</strong> {errMsg.message}
-                </div>
-            )
-        }
-        return (
-            <div className="alert alert-danger mt-2 px-5 pt-4">
-                <h4 className="alert-heading">Server Error</h4>
-                <p>Apologies, we cannot handle your request right now. Please try again later</p>
-                {errMsgBox}
             </div>
         )
     }
@@ -137,7 +118,7 @@ const SoftwareEntry = props => {
         <div className="container">
             {checkNoURLParams() && noParamMessage()}
             {errorInfo.requestFailed && brokerErrorMessage(errorInfo.errMsg)}
-            {!(entryInfo.numCitedHits > 0) && noEntryMessage()}
+            {!errorInfo.requestFailed && !(entryInfo.numCitedHits > 0) && noEntryMessage()}
 
             {((entryInfo.numCitedHits) > 0) && 
             <SoftwareEntryDetails entryInfo={entryInfo} />  }

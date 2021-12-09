@@ -13,6 +13,7 @@ const SoftwareEntryDetails = props => {
 
     const uniqueIdentifierData = removeDuplicatesTwoProps(identifierData, "IDScheme", "ID")
 
+    document.title = ("Asclepias: " + entryMetadata.Title)
 
     return (
         <div className="container">

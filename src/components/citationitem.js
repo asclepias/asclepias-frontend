@@ -16,18 +16,14 @@ const CitationItem = props => {
                         }
                     </ul>
                 </div>
-                <div className="d-flex justify-content-between mt-3">
+                <div className="mt-3">
 
                     {(props.citationItem.metadata.Source.hasOwnProperty("Publisher")) &&
-                        <div className="col">
-                            <div>{props.citationItem.metadata.Source.Publisher[0].Name}</div>
-                        </div>
+                        <span>{props.citationItem.metadata.Source.Publisher[0].Name}</span>
                     }
 
                     {(props.citationItem.metadata.Source.hasOwnProperty("PublicationDate")) &&
-                        <div className="col">
-                            <div>{props.citationItem.metadata.Source.PublicationDate}</div>
-                        </div>
+                        <span> ({props.citationItem.metadata.Source.PublicationDate}) </span>
                     }
                 </div>
 

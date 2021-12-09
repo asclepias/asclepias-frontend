@@ -1,11 +1,17 @@
 import React, { useState } from "react"
-import { useNavigate } from "react-router"
+import { useNavigate, useLocation } from "react-router"
 
 const MetadataSearch = props => {
 
     let navigate = useNavigate();
+    let MetadataTitle = ""
+    const location = useLocation();
 
-    document.title = "Asclepias: Metadata Search"
+    if (location.pathname === "/metadatasearch") {
+        document.title = "Asclepias: Metadata Search"
+        MetadataTitle = <h1 className="mt-3">Metadata Search</h1>
+
+    }
 
     const [inputMetadataSearch, setInputMetadataSearch] = useState({
         startPubYear: "",
@@ -70,7 +76,7 @@ const MetadataSearch = props => {
     return (
 
         <div className="container">
-            <h1 className="mt-3">Metadata Search</h1>
+            {MetadataTitle}
             <p>Find software based on the Metadata of Papers that Cite It</p>
 
 

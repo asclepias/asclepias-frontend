@@ -12,7 +12,17 @@ const CitationBox = props => {
     const citationStartHitNum = (citationPageNum - 1) * citationNumItemsPerPage + 1
     const citationEndHitNum = citationStartHitNum + citationNumHits - 1
     const citationTotNumPages = Math.ceil(citationTotalHits/citationNumItemsPerPage)
-    const res = [...Array(citationTotNumPages)].map((_, i) => i)
+    var res = [...Array(citationTotNumPages)].map((_, i) => i)
+
+    if (res.length > 10) {
+        if (citationPageNum < 5) { res = res.filter( (x) => ( x < 10))}
+        else if ( (citationTotNumPages - citationPageNum) < 5 ) {
+            res = res.filter((x) => ( x > (citationTotNumPages - 11))) 
+        } else {
+            res = res.filter((x) => (( x > (citationPageNum - 6) ) && ( x < (citationPageNum + 4) ) ))
+        }
+
+    }
 
     const pageNavBar = () => {
         return(
