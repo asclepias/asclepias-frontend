@@ -64,7 +64,7 @@ const EntrySearch = props => {
         <div className="container">
             {EntryTitle}
 
-            <p>Find a Software Entry and its Citing Papers by it's DOI, ADS Identifier, Zenodo Identifier, or URL</p>
+            <p>Find a Software Entry and its Citing Papers by its DOI, ADS Identifier, Zenodo Identifier, or URL</p>
 
             <form onSubmit={handleSubmit} className="form-container">
                 <div className="mb-3">

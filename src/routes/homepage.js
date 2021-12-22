@@ -8,7 +8,7 @@ const HomePage = props => {
 
     return (
         <div className="container">
-            <div className="container gy-5 py-5">
+            <div className="container gy-5 pt-5 pb-3">
                 <div className="fs-1 mt-3 mb-2 px-5">
                     Asclepias connects <b>Astronomy </b>
                     to the <b>Software</b> that makes it happen.
@@ -19,12 +19,12 @@ const HomePage = props => {
                 </div>
             </div>
 
-            <div className="d-flex px-5 mt-3 justify-content-evenly">
-                <div className="card p-0 flex-fill mx-3 bg-light">
+            <div className="d-flex px-3 mt-1 justify-content-evenly flex-wrap flex-md-nowrap">
+                <div className="card p-0 flex-fill mx-3 bg-light mt-3">
                     <div className="card-header mb-3 fw-bold bg-primary text-white">Metadata Search</div>
                     <MetadataSearch />
                 </div>
-                <div className="card p-0 flex-fill mx-3 bg-light">
+                <div className="card p-0 flex-fill mx-3 bg-light mt-3">
                     <div className="card-header mb-3 fw-bold bg-primary text-white">Entry Search</div>
                     <EntrySearch />
                 </div>
