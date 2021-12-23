@@ -1,6 +1,12 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
+const idButtonStyle = {
+    "white-space": "nowrap",
+    "overflow": "hidden",
+    "text-overflow": "ellipsis" 
+}
+
 function useQuery() {
     return new URLSearchParams(useLocation().search)
 }
@@ -12,7 +18,7 @@ const MetadataSearchResultsItem = props => {
     const linkToEntryMetadataFilter = linkToEntry+"&"+useQuery().toString()
 
     return (
-        <li className="list-group-item d-flex justify-content-between align-items-start" key={props.resultItem.Title + "key"}>
+        <li className="list-group-item d-flex justify-content-between align-items-start flex-wrap flex-md-nowrap" key={props.resultItem.Title + "key"}>
         <div className="mx-2" id={props.resultItem.Title + "body"}>
             <div className="fw-bold fs-5"><Link to={linkToEntry}>{props.resultItem.Title}</Link></div>
 
@@ -29,7 +35,12 @@ const MetadataSearchResultsItem = props => {
             <div className="d-grid gap-2 d-md-block my-3">
                 {
                     props.resultItem.Identifier.map((resultId) => (
-                        <a className="btn btn-primary btn-sm me-2 mb-1" href={resultId.IDURL} key={resultId.IDScheme.toUpperCase() + resultId.ID}>{resultId.IDScheme.toUpperCase()}: {resultId.ID}</a>
+                        <a className="btn btn-primary btn-sm me-2 mb-1" 
+                        href={resultId.IDURL} 
+                        key={resultId.IDScheme.toUpperCase() + resultId.ID}
+                        style={idButtonStyle}>
+                            {resultId.IDScheme.toUpperCase()}: {resultId.ID}
+                        </a>
                     ))
                 }
             </div>
