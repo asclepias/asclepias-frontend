@@ -2,9 +2,9 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
 const idButtonStyle = {
-    "white-space": "nowrap",
+    "whiteSpace": "nowrap",
     "overflow": "hidden",
-    "text-overflow": "ellipsis" 
+    "textOverflow": "ellipsis" 
 }
 
 function useQuery() {

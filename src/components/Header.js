@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import logoWhite from "../images/logo-white512.png"
 
 const Header = () => {
 
@@ -20,7 +21,10 @@ const Header = () => {
         <header className="bg-primary container-fluid">
             <div className="container">
             <nav className="navbar navbar-expand-md navbar-dark bg-primary g d-flex mb-0 px-0">
-                <a className="navbar-brand mb-1" href="/">Asclepias</a>
+                <a className="navbar-brand mb-1" href="/">
+                    <img src={logoWhite} alt="" width="30" height="30" className="d-inline-block align-text-top me-2" /> 
+                    Asclepias
+                </a>
                 <button className="navbar-toggler" type="button" 
                     data-toggle="collapse" 
                     data-target="#navbarSupportedContent" 

@@ -12,11 +12,21 @@ import MetadataSearchResults from './routes/metadatasearchresults'
 import About from './routes/about'
 
 import HomePage from './routes/homepage'
+import backgroundImage from "./images/background.png"
+
 
 export default function App() {
+
+    const bgImageStyle = {
+        backgroundImage:`url(${backgroundImage})`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "auto",
+        backgroundPosition: "center -250px"
+    }
+
     return (
         <React.StrictMode>
-            <div className="container-fluid p-0 m-0 min-vh-100 d-flex flex-column">
+            <div className="container-fluid p-0 m-0 min-vh-100 d-flex flex-column" style={bgImageStyle}>
                 <Header />
 
                 <div className="container">

@@ -145,24 +145,9 @@ const MetadataSearch = props => {
                         name="otherSearchTerms"
                     />
                 </div>
-                {/* <div className="mb-3">
-                    <label htmlFor="Item2" className="form-label">Identifier Type</label>
-                    <select 
-                        className="form-select" 
-                        aria-label="Identifier Type"
-                        value={inputSearch.searchidentifiertype}
-                        onChange={onChange}
-                        name="searchidentifiertype"
-                    >
-                        <option value="choose">Choose Identifier Type</option>
-                        <option value="doi">DOI</option>
-                        <option value="ads">ADS</option>
-                        <option value="url">URL</option>
-                    </select>
-                    <div className="invalid-feedback">Choose the appropriate identifier type</div>
-                </div> */}
+
                 <div className="mb-3">
-                    <input type="submit" value="Search" className="btn btn-secondary" />
+                    <input type="submit" value="Search" className="btn btn-primary" />
                 </div>
             </form>
 

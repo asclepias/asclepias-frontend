@@ -74,8 +74,8 @@ const CitationBox = props => {
     return (
         <div className="container px-0" id="citationList">
             <div className="container d-flex mt-3 mb-2 justify-content-between align-items-end">
-                <div className="h4 mb-0"> {{metadataFilterFlag} && "Filtered"} Citations </div>
-                { {metadataFilterFlag} && 
+                <div className="h4 mb-0"> {metadataFilterFlag && (<span>Filtered</span>)} Citations </div>
+                { metadataFilterFlag && 
                 (<span className="badge rounded-pill bg-primary">{searchHumanReadable}</span>) }
 
                 <div> Items {citationStartHitNum} - {citationEndHitNum} of {citationTotalHits}</div>

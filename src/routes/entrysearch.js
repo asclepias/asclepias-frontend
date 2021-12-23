@@ -97,7 +97,7 @@ const EntrySearch = props => {
                     <div className="invalid-feedback">Choose the appropriate identifier type</div>
                 </div>
                 <div className="mb-3">
-                    <input type="submit" value="Search" className="btn btn-secondary" />
+                    <input type="submit" value="Search" className="btn btn-primary" />
                 </div>
             </form>
 
