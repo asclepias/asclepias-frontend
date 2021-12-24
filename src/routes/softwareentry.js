@@ -3,6 +3,7 @@ import { useLocation } from "react-router";
 import CitationBox from "../components/citationbox"
 import SoftwareEntryDetails from "../components/SoftwareEntryDetails";
 import { brokerErrorMessage } from "../helpers/apihelpers"
+import LoadingAnimation from "../components/LoadingAnimation";
 
 function useQuery() {
     return new URLSearchParams(useLocation().search)
@@ -16,6 +17,10 @@ const brokerSearchParams = {
 }
 
 const SoftwareEntry = props => {
+
+    const [stateInfo, setStateInfo] = useState({
+        isPageLoaded: false
+    })
 
     const [entryInfo, setEntryInfo] = useState({
         citedJSON: {}, numCitedHits: 0
@@ -86,6 +91,12 @@ const SoftwareEntry = props => {
             setErrorInfo(
                 prevState => ({...prevState, requestFailed: false})
             )
+            setStateInfo(prevState =>
+                ({
+                    ...prevState,
+                    isPageLoaded: true
+                })
+            )
         } catch(err) {
                 console.log(err);
                 setErrorInfo(prevState => ({
@@ -93,6 +104,12 @@ const SoftwareEntry = props => {
                         requestFailed: true,
                         errMsg: err
                 }))
+                setStateInfo(prevState =>
+                    ({
+                        ...prevState,
+                        isPageLoaded: true
+                    })
+                )
         }
         
 
@@ -132,8 +149,9 @@ const SoftwareEntry = props => {
     return (
         <div className="container py-3">
             {checkNoURLParams() && noParamMessage()}
+            {!stateInfo.isPageLoaded && LoadingAnimation()}
             {errorInfo.requestFailed && brokerErrorMessage(errorInfo.errMsg)}
-            {!errorInfo.requestFailed && !(entryInfo.numCitedHits > 0) && noEntryMessage()}
+            {stateInfo.isPageLoaded && !errorInfo.requestFailed && !(entryInfo.numCitedHits > 0) && noEntryMessage()}
 
             {((entryInfo.numCitedHits) > 0) && 
             <SoftwareEntryDetails entryInfo={entryInfo} />  }
