@@ -54,7 +54,7 @@ const MetadataSearchResultsBox = props => {
     }
 
     return (
-        <div className="container px-0" id="resultList">
+        <div className="container px-0 pb-3" id="resultList">
         <div className="container d-flex mt-3 mb-2 justify-content-between align-items-end">
             <div className="h4"> Results </div>
             <div> Items {resultStartHitNum} - {resultEndHitNum} of {resultTotalHits}</div>

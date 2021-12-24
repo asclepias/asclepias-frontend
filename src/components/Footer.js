@@ -24,16 +24,16 @@ const Footer = () => {
                     </div>
                 </div>
                 <div className="row pt-5 d-flex justify-content-center">
-                    <a href="https://www.aas.org/" style={partnerLogoStyle}>
+                    <a href="https://www.aas.org/" style={partnerLogoStyle} className="my-2">
                         <img src={aasLogo} alt="The American Astronomical Society" style={partnerLogoStyle} className="mx-2"/>
                     </a>
-                    <a href="https://www.zenodo.org/" style={partnerLogoStyle}>
+                    <a href="https://www.zenodo.org/" style={partnerLogoStyle} className="my-2">
                     <img src={zenodoLogo} alt="Zenodo" style={partnerLogoStyle} className="mx-2"/>
                     </a>
-                    <a href="https://ui.adsabs.harvard.edu/" style={partnerLogoStyle}>
+                    <a href="https://ui.adsabs.harvard.edu/" style={partnerLogoStyle} className="my-2">
                     <img src={adsLogo} alt="NASA Astrophysics Data System" style={partnerLogoStyle} className="mx-2"/>
                     </a>
-                    <a href="https://www.sidratresearch.com/" style={partnerLogoStyle}>
+                    <a href="https://www.sidratresearch.com/" style={partnerLogoStyle} className="my-2">
                     <img src={sidratLogo} alt="Sidrat Research" style={partnerLogoStyle} className="mx-2"/>
                     </a>
                 </div>

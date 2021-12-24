@@ -21,7 +21,7 @@ const Header = () => {
         <header className="bg-primary container-fluid">
             <div className="container">
             <nav className="navbar navbar-expand-md navbar-dark bg-primary g d-flex mb-0 px-0">
-                <a className="navbar-brand mb-1" href="/">
+                <a className="navbar-brand mb-0" href="/">
                     <img src={logoWhite} alt="" width="30" height="30" className="d-inline-block align-text-top me-2" /> 
                     Asclepias
                 </a>
@@ -41,7 +41,7 @@ const Header = () => {
                         <Link to="/entrysearch" className="nav-item nav-link" onClick={onNavClick}>Entry Search</Link>
                         <Link to="/metadatasearch" className="nav-item nav-link" onClick={onNavClick}>Metadata Search</Link>
                     </div>
-                    <div className="navbar-text mb-1 ms-auto d-none d-lg-block">Citing Software, Making Science</div>
+                    <div className="navbar-text my-auto ms-auto d-none d-lg-block">Citing Software, Making Science</div>
                 </div>
             </nav>
             </div>

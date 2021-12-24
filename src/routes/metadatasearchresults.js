@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback} from "react";
 import { useLocation } from "react-router";
 import { brokerErrorMessage } from "../helpers/apihelpers"
 import MetadataSearchResultsBox from "../components/metadatasearchresultsbox";
+import LoadingAnimation from "../components/LoadingAnimation";
 
 function useQuery() {
     return new URLSearchParams(useLocation().search)
@@ -11,6 +12,9 @@ const MetadataSearchResults = props => {
 
     const brokerSearchParams = { journal: "Publication Name", publication_year: "Publication Year", keyword: "Publication Keywords", q: "Other Search Terms" }
 
+    const [stateInfo, setStateInfo] = useState({
+        isPageLoaded: false
+    })
 
     const [resultInfo, setResultInfo] = useState({
         hitsJSON: {}, numHits: 0
@@ -87,6 +91,12 @@ const MetadataSearchResults = props => {
             setErrorInfo(
                 prevState => ({...prevState, requestFailed: false})
             )
+            setStateInfo(prevState =>
+                ({
+                    ...prevState,
+                    isPageLoaded: true
+                })
+            )
         } catch(err) {
                 console.log(err);
                 setErrorInfo(prevState => ({
@@ -94,6 +104,12 @@ const MetadataSearchResults = props => {
                         requestFailed: true,
                         errMsg: err
                 }))
+                setStateInfo(prevState =>
+                    ({
+                        ...prevState,
+                        isPageLoaded: true
+                    })
+                )
         }
         
 
@@ -115,6 +131,7 @@ const MetadataSearchResults = props => {
         })
         brokerUrl.search = params
         updateBrokerSearchResult(brokerUrl)
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -122,19 +139,19 @@ const MetadataSearchResults = props => {
 
         setErrorInfo(prevState => ({ ...prevState, requestFailed: false }))
 
-        console.log("Getting Initial Search Data")
         loadInitialData()
 
     }, [setErrorInfo, loadInitialData])
 
     return (
-        <div className="container">
+        <div className="container py-3">
             {checkNoURLParams() && noParamMessage()}
+            {!stateInfo.isPageLoaded && LoadingAnimation()}
             {!checkNoURLParams() && searchResultHeader()}
-            {errorInfo.requestFailed && brokerErrorMessage(errorInfo.errMsg)}
-            {!errorInfo.requestFailed && !(resultInfo.numHits > 0) && noEntryMessage()}
+            {!checkNoURLParams() && errorInfo.requestFailed && brokerErrorMessage(errorInfo.errMsg)}
+            {!checkNoURLParams() && !errorInfo.requestFailed && !(resultInfo.numHits > 0) && noEntryMessage()}
 
-            {(resultInfo.numHits > 0) && <MetadataSearchResultsBox resultInfo={resultInfo} updateBrokerSearchProperty={updateBrokerSearchResultProperty}/>}
+            {!checkNoURLParams() && (resultInfo.numHits > 0) && <MetadataSearchResultsBox resultInfo={resultInfo} updateBrokerSearchProperty={updateBrokerSearchResultProperty}/>}
 
         </div>
     )

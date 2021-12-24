@@ -126,12 +126,11 @@ const SoftwareEntry = props => {
 
     useEffect(() => {
         return () => {
-          console.log("Cleaning up...")
         }
       }, [])
 
     return (
-        <div className="container">
+        <div className="container py-3">
             {checkNoURLParams() && noParamMessage()}
             {errorInfo.requestFailed && brokerErrorMessage(errorInfo.errMsg)}
             {!errorInfo.requestFailed && !(entryInfo.numCitedHits > 0) && noEntryMessage()}
