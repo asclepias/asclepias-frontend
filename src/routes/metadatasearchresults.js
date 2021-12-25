@@ -147,9 +147,9 @@ const MetadataSearchResults = props => {
         <div className="container py-3">
             {checkNoURLParams() && noParamMessage()}
             {!stateInfo.isPageLoaded && LoadingAnimation()}
-            {!checkNoURLParams() && searchResultHeader()}
+            {!checkNoURLParams() && stateInfo.isPageLoaded && searchResultHeader()}
             {!checkNoURLParams() && errorInfo.requestFailed && brokerErrorMessage(errorInfo.errMsg)}
-            {!checkNoURLParams() && !errorInfo.requestFailed && !(resultInfo.numHits > 0) && noEntryMessage()}
+            {!checkNoURLParams() && stateInfo.isPageLoaded && !errorInfo.requestFailed && !(resultInfo.numHits > 0) && noEntryMessage()}
 
             {!checkNoURLParams() && (resultInfo.numHits > 0) && <MetadataSearchResultsBox resultInfo={resultInfo} updateBrokerSearchProperty={updateBrokerSearchResultProperty}/>}
 
