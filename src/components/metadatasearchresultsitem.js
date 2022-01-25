@@ -24,7 +24,7 @@ const MetadataSearchResultsItem = props => {
 
             <div className="">
                 <ul className="list-inline text-muted">
-                    {
+                    {   props.resultItem.Creator !== undefined &&
                         props.resultItem.Creator.map((author) => (
                             <li className="list-inline-item" key={author.Name}>{author.Name}; </li>
                         ))

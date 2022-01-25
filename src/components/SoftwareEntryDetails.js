@@ -23,7 +23,7 @@ const SoftwareEntryDetails = props => {
             <div className="row">
                 <div className="fs-5 pb-0">
                     <ul className="list-inline mb-3">
-                        {
+                        {   authors !== undefined &&
                             authors.map((author) => (
                                 <li className="list-inline-item" key={author.Name}>{author.Name}; </li>
                             ))
