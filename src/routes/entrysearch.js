@@ -7,6 +7,8 @@ const EntrySearch = props => {
     let EntryTitle = ""
     const location = useLocation();
 
+    let defaultPlaceholderText = "Type/Paste Identifier Here";
+
     if (location.pathname === "/entrysearch") {
         document.title = "Asclepias: Software Entry Search"
         EntryTitle = <h1 className="mt-3">Software Entry Search</h1>
@@ -16,14 +18,46 @@ const EntrySearch = props => {
     const [inputSearch, setInputSearch] = useState({
         searchidentifier: "",
         searchidentifiertype: "choose",
+        searchplaceholder: defaultPlaceholderText,
         errors: []
     })
 
     const onChange = e => {
+
+        var newPlaceholderText = defaultPlaceholderText;
+
+        if (e.target.name === "searchidentifiertype") {
+            if (e.target.value === "doi") {
+                newPlaceholderText =  "10.5281/zenodo.3588521"
+            }
+            if (e.target.value === "ads") {
+                newPlaceholderText =  "2019zndo...3588521N"
+            }
+            if (e.target.value === "url") {
+                newPlaceholderText =  "https://github.com/lmfit/lmfit-py/releases/tag/1.0.0"
+            }
+        } 
+
         setInputSearch({
             ...inputSearch,
             [e.target.name]: e.target.value,
+            searchplaceholder: newPlaceholderText
         })
+
+
+    }
+
+    const changeTextToField = () => {
+        if (inputSearch.searchidentifier === "") {
+            setInputSearch({
+                ...inputSearch,
+                searchidentifier: inputSearch.searchplaceholder
+            })
+        }
+    }
+
+    const clickIdentifierField = (e) => {
+        changeTextToField();
     }
 
     const handleSubmit = e => {
@@ -64,7 +98,10 @@ const EntrySearch = props => {
         <div className="container">
             {EntryTitle}
 
-            <p>Find a Software Entry and its Citing Papers by its DOI, ADS Identifier, Zenodo Identifier, or URL</p>
+            <p>Find a Software Entry and its Citing Papers by its:<br /> 
+            <b>DOI</b> <i>(e.g. 10.5281/zenodo.3588521)</i>,<br />
+            <b>ADS Identifier</b> <i>(e.g. 2019zndo...3588521N)</i>, or<br /> 
+            <b>URL</b> <i>(e.g. <a href="https://github.com/lmfit/lmfit-py/releases/tag/1.0.0">https://github.com/lmfit/lmfit-py/releases/tag/1.0.0)</a></i></p>
 
             <form onSubmit={handleSubmit} className="form-container">
                 <div className="mb-3">
@@ -72,9 +109,10 @@ const EntrySearch = props => {
                     <input
                         type="text"
                         className="form-control"
-                        placeholder="Type/Paste Identifier Here"
+                        placeholder={inputSearch.searchplaceholder}
                         id="identifier-text"
                         onChange={onChange}
+                        onFocus={clickIdentifierField}
                         value={inputSearch.searchidentifier}
                         name="searchidentifier"
                     />

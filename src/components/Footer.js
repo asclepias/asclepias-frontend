@@ -3,7 +3,8 @@ import logo from "../images/logo192.png"
 import aasLogo from "../images/aas-logo.png"
 import adsLogo from "../images/ads-logo.png"
 import zenodoLogo from "../images/zenodo-logo.svg"
-import sidratLogo from "../images/sidrat-logo.png"
+import sidratLogo from "../images/sidrat-logo.svg"
+import wwLogo from "../images/WWLogotype70.png"
 
 const partnerLogoStyle = {height: "70px", width:"auto"}
 
@@ -32,6 +33,9 @@ const Footer = () => {
                     </a>
                     <a href="https://ui.adsabs.harvard.edu/" style={partnerLogoStyle} className="my-2">
                     <img src={adsLogo} alt="NASA Astrophysics Data System" style={partnerLogoStyle} className="mx-2"/>
+                    </a>
+                    <a href="https://www.winterway.eu" style={partnerLogoStyle} className="my-2">
+                    <img src={wwLogo} alt="Winter Way" style={partnerLogoStyle} className="mx-2"/>
                     </a>
                     <a href="https://www.sidratresearch.com/" style={partnerLogoStyle} className="my-2">
                     <img src={sidratLogo} alt="Sidrat Research" style={partnerLogoStyle} className="mx-2"/>

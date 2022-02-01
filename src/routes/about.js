@@ -48,7 +48,12 @@ const About = props => {
                 The development of the code for the Asclepias project is entirely open-source and freely available on the <a href="https://github.com/asclepias">GitHub repository</a>. Extensive documentation on the Asclepias Broker, including the structure of how it connects citations is available at the <a href="https://asclepias-broker.readthedocs.io/en/latest/">Read the Docs</a> page.  
             </p>
 
-            <h3>The Team</h3>
+            <h3 className="pt-3">How do Software Entries make it into Asclepias</h3>
+            <p className="pt-1 fs-5">
+            All software that appears in Asclepias is cited by an academic publication (or ArXiv preprint) that appears in the <a href="http://ui.adsabs.harvard.edu">Astrophysics Data System</a>. The citation should use, preferably, a Digital Object Identifier (or DOI), or a GitHub repository link (to a repository as a whole, or a specific release). We recommend uploading a version of your software to <a href="https://zenodo.org/">Zenodo</a>, which can import the specific version of your software from GitHub, and generates a DOI to cite. The first time the software is cited in a publication, it will be "harvested" by Asclepias, and will be available to be found!
+            </p>
+
+            <h3 className="pt-3">The Team</h3>
             <p className="pt-1 fs-5">
                 The Asclepias project has a large group of contributors who have made this effort a success. The team includes:   
             </p>
@@ -62,7 +67,7 @@ const About = props => {
 
             <h3>Questions?</h3>
             <p className="pt-1 fs-5 pb-3">
-                Do you have questions, bug reports, or feature requests for the team? Contact us here at the following e-mail address. 
+                Do you have questions, bug reports, or feature requests for the team? Contact us here at <a href="mailto:asclepias@aas.org">asclepias@aas.org</a> 
             </p>
 
         </div> 
