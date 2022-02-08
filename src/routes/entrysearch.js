@@ -24,40 +24,37 @@ const EntrySearch = props => {
 
     const onChange = e => {
 
-        var newPlaceholderText = defaultPlaceholderText;
+        var newIdentifierText = "";
 
         if (e.target.name === "searchidentifiertype") {
             if (e.target.value === "doi") {
-                newPlaceholderText =  "10.5281/zenodo.3588521"
+                newIdentifierText =  "10.5281/zenodo.3588521"
             }
             if (e.target.value === "ads") {
-                newPlaceholderText =  "2019zndo...3588521N"
+                newIdentifierText =  "2019zndo...3588521N"
             }
             if (e.target.value === "url") {
-                newPlaceholderText =  "https://github.com/lmfit/lmfit-py/releases/tag/1.0.0"
+                newIdentifierText =  "https://github.com/lmfit/lmfit-py/releases/tag/1.0.0"
             }
         } 
 
-        setInputSearch({
-            ...inputSearch,
-            [e.target.name]: e.target.value,
-            searchplaceholder: newPlaceholderText
-        })
-
-
-    }
-
-    const changeTextToField = () => {
-        if (inputSearch.searchidentifier === "") {
+        if (inputSearch.searchidentifier === ""){
             setInputSearch({
                 ...inputSearch,
-                searchidentifier: inputSearch.searchplaceholder
+                [e.target.name]: e.target.value,
+                searchidentifier: newIdentifierText
             })
+        } else {
+            setInputSearch({
+                ...inputSearch,
+                [e.target.name]: e.target.value,
+            })            
         }
+
     }
 
     const clickIdentifierField = (e) => {
-        changeTextToField();
+        e.target.select();
     }
 
     const handleSubmit = e => {
