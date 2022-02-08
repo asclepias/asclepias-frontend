@@ -21,7 +21,7 @@ const Footer = () => {
                     </div>
                     <div className="col-8 text-left pt-2">
                         <b>The Asclepias Project</b> is a joint effort of the American Astronomical Society, the NASA Astrophysics Data System, Zenodo, and Sidrat Research, funded by the Alfred P. Sloan Foundation. 
-                        <p className="text-muted pt-2">&copy; American Astronomical Society 2021</p>
+                        <p className="text-muted pt-2">&copy; American Astronomical Society 2022</p>
                     </div>
                 </div>
                 <div className="row pt-5 d-flex justify-content-center">

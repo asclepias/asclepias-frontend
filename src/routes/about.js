@@ -1,4 +1,5 @@
 import React from "react";
+import ReactPlayer from "react-player/youtube";
 
 const About = props => {
 
@@ -48,7 +49,11 @@ const About = props => {
                 The development of the code for the Asclepias project is entirely open-source and freely available on the <a href="https://github.com/asclepias">GitHub repository</a>. Extensive documentation on the Asclepias Broker, including the structure of how it connects citations is available at the <a href="https://asclepias-broker.readthedocs.io/en/latest/">Read the Docs</a> page.  
             </p>
 
-            <h3 className="pt-3">How do Software Entries make it into Asclepias</h3>
+            <div style={{paddingTop:"56.25%", position:"relative"}} className="mx-auto mb-5">
+            <ReactPlayer url='https://www.youtube.com/watch?v=0_5b_NZ-vbY' width="100%" height="100%" style={{position:"absolute", top:0, left:0}}/>
+            </div>
+
+            <h3 className="pt-5">How do Software Entries make it into Asclepias</h3>
             <p className="pt-1 fs-5">
             All software that appears in Asclepias is cited by an academic publication (or ArXiv preprint) that appears in the <a href="http://ui.adsabs.harvard.edu">Astrophysics Data System</a>. The citation should use, preferably, a Digital Object Identifier (or DOI), or a GitHub repository link (to a repository as a whole, or a specific release). We recommend uploading a version of your software to <a href="https://zenodo.org/">Zenodo</a>, which can import the specific version of your software from GitHub, and generates a DOI to cite. The first time the software is cited in a publication, it will be "harvested" by Asclepias, and will be available to be found!
             </p>
