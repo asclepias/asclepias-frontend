@@ -38,7 +38,7 @@ const EntrySearch = props => {
             }
         } 
 
-        if (inputSearch.searchidentifier === ""){
+        if ((inputSearch.searchidentifier === "") & (e.target.name === "searchidentifiertype")){
             setInputSearch({
                 ...inputSearch,
                 [e.target.name]: e.target.value,
